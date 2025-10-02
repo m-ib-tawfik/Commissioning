@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 3: Start-up & Acceptance Infographic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #581845; }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        .kpi-card {
+            background-color: #FFC300;
+            color: #581845;
+            transition: transform 0.3s;
+        }
+        .kpi-card:hover {
+            transform: translateY(-4px);
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen p-4 md:p-8">
+        <header class="text-center mb-10 p-6 rounded-lg shadow-xl" style="background-color: #FFC300; color: #581845;">
+            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight">DAY 3: START-UP & CONTRACTUAL ACCEPTANCE</h1>
+            <p class="text-xl md:text-2xl mt-2 font-semibold">From RFSU to PAC: Verifying Performance and Transferring Custody</p>
+        </header>
+
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold mb-6 text-center" style="color: #FFC300;">CRITICAL MILESTONES & PERFORMANCE METRICS</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <div class="kpi-card p-6 rounded-lg shadow-lg">
+                    <div class="text-5xl font-extrabold">72 HRS</div>
+                    <p class="text-sm mt-2 font-semibold">MIN. DURATION FOR MAX RATE PTR</p>
+                    <p class="text-xs">Contractual run time required to prove **Maximum Design Capacity**.</p>
+                </div>
+                
+                <div class="kpi-card p-6 rounded-lg shadow-lg">
+                    <div class="text-5xl font-extrabold">±3%</div>
+                    <p class="text-sm mt-2 font-semibold">THROUGHPUT NEGATION RULE</p>
+                    <p class="text-xs">Exceeding this band during the PTR results in **test failure** and restart from zero hours.</p>
+                </div>
+
+                <div class="kpi-card p-6 rounded-lg shadow-lg">
+                    <div class="text-5xl font-extrabold">PSSR</div>
+                    <p class="text-sm mt-2 font-semibold">MANDATORY SAFETY GATE</p>
+                    <p class="text-xs">Final multi-disciplinary check **before** any hazardous process fluid introduction.</p>
+                </div>
+
+                <div class="kpi-card p-6 rounded-lg shadow-lg">
+                    <div class="text-5xl font-extrabold">PAC</div>
+                    <p class="text-sm mt-2 font-semibold">START OF WARRANTY</p>
+                    <p class="text-xs">Provisional Acceptance Certificate signifies transfer of **Care, Custody, and Control (CCC)**.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12 p-6 rounded-lg shadow-xl" style="background-color: #581845; color: #FFC300;">
+            <h2 class="text-3xl font-bold mb-4 text-center">THE TRANSITION: RFSU & PSSR WORKFLOW</h2>
+            <p class="text-xl mb-6 text-center text-gray-300">The shift from Pre-Commissioning to Operations requires strict procedural authorization.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="p-4 rounded-lg shadow-lg" style="background-color: #900C3F; color: #FFC300;">
+                    <h3 class="text-2xl font-bold mb-3">RFSU: Technical Readiness Checklist</h3>
+                    <p class="text-sm font-semibold mb-2" style="color: #FFC300;">(Required for Contractor Handover)</p>
+                    <ul class="list-disc ml-5 space-y-1 text-gray-200 text-sm">
+                        <li>All **Category A & B Punch Items** closed.</li>
+                        <li>All **Functional Tests (FTs)** completed (signed off by Contractor/Company).</li>
+                        <li>**Tightness Test** verified (e.g., $90\%$ Design Pressure).</li>
+                        <li>**Inerting/Drying** complete (e.g., $<2.0\%$ O₂).</li>
+                        <li>**Operational Inventory** (spares, fills) confirmed on-site.</li>
+                    </ul>
+                </div>
+
+                <div class="p-4 rounded-lg shadow-lg" style="background-color: #C70039; color: #FFC300;">
+                    <h3 class="text-2xl font-bold mb-3">PSSR: Safety Authorization Gate</h3>
+                    <p class="text-sm font-semibold mb-2" style="color: #FFC300;">(Mandatory before Raw Materials)</p>
+                    <ul class="list-disc ml-5 space-y-1 text-gray-200 text-sm">
+                        <li>**PSSR Team** (Cross-Functional) mobilized and audit conducted.</li>
+                        <li>**All PSVs/ESD systems** confirmed operational and sealed.</li>
+                        <li>**Operating Manuals** reflect "as-built" reality.</li>
+                        <li>**Personnel Training** records validated (required know-how confirmed).</li>
+                        <li>**Temporary Bypasses** physically removed and normalized.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold mb-6 text-center" style="color: #FFC300;">CONTRACTUAL TESTING: THE 72-HOUR PERFORMANCE TEST RUN</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <div class="lg:col-span-2 p-6 rounded-lg shadow-lg" style="background-color: #900C3F; color: #FFFFFF;">
+                    <h3 class="text-xl font-semibold mb-4 text-center">PTR STABILITY WINDOW (NEGATION RISK)</h3>
+                    <div class="chart-container h-80">
+                        <canvas id="ptrNegationChart"></canvas>
+                    </div>
+                    <p class="text-sm mt-4 text-center text-gray-300">The chart shows the mandatory operating band for the 72-hour Maximum Rate Performance Test. Any deviation outside the $\pm 3\%$ window, even for a moment, results in a failure and test restart from zero hours.</p>
+                </div>
+
+                <div class="p-6 rounded-lg shadow-lg" style="background-color: #FF5733; color: #581845;">
+                    <h3 class="text-xl font-semibold mb-4 text-center">TEST RUN DATA LOGGING</h3>
+                    <p class="font-bold mb-2">Data must be collected hourly for 72 hours:</p>
+                    <ul class="list-disc ml-5 space-y-2 text-sm font-medium">
+                        <li>Feedstock Composition & Quality</li>
+                        <li>Utility Consumption (Power/Steam per unit)</li>
+                        <li>Process Parameters (T, P, Flow)</li>
+                        <li>Product Quality Analyses</li>
+                    </ul>
+                    <div class="mt-4 p-3 rounded-lg text-xs font-bold" style="background-color: #C70039; color: #FFC300;">
+                        <span class="text-lg">⏱️ 12 HRS:</span> Minimum Rate Test Duration
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12 p-6 rounded-lg shadow-xl" style="background-color: #581845; color: #FFC300;">
+            <h2 class="text-3xl font-bold mb-4 text-center">FINAL ACCEPTANCE: TRANSFER OF LIABILITY</h2>
+            <p class="text-xl mb-6 text-center text-gray-300">The final sign-off transfers the legal responsibility (CCC) and triggers the end of the Contractor's execution phase.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <div class="p-4 rounded-lg shadow-lg" style="background-color: #900C3F; color: #FFFFFF;">
+                    <h3 class="text-2xl font-bold mb-2">Provisional Acceptance (PAC)</h3>
+                    <p class="text-base font-semibold" style="color: #FFC300;">Issued after successful PTR.</p>
+                    <ul class="list-disc ml-5 space-y-1 text-sm font-medium mt-2">
+                        <li>**Transfer of CCC** is executed.</li>
+                        <li>Contractor liability for construction ends (except warranty).</li>
+                        <li>**Warranty Period** officially begins.</li>
+                    </ul>
+                </div>
+
+                <div class="p-4 rounded-lg shadow-lg" style="background-color: #C70039; color: #FFFFFF;">
+                    <h3 class="text-2xl font-bold mb-2">Final Acceptance (FAC)</h3>
+                    <p class="text-base font-semibold" style="color: #FFC300;">Issued at end of Warranty Period.</p>
+                    <ul class="list-disc ml-5 space-y-1 text-sm font-medium mt-2">
+                        <li>All **Category C Punch Items** must be resolved.</li>
+                        <li>Final documentation updates (As-Builts, O&M) are transferred.</li>
+                        <li>**Contractor's liability** is fully discharged.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        function wrapLabels(label) {
+            if (label.length <= 16) return label;
+            const words = label.split(' ');
+            let lines = [];
+            let currentLine = '';
+            words.forEach(word => {
+                if ((currentLine + ' ' + word).length > 16 && currentLine.length > 0) {
+                    lines.push(currentLine);
+                    currentLine = word;
+                } else if (currentLine.length === 0) {
+                    currentLine = word;
+                } else {
+                    currentLine += ' ' + word;
+                }
+            });
+            if (currentLine.length > 0) lines.push(currentLine);
+            return lines;
+        }
+
+        const tooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        const ptrCtx = document.getElementById('ptrNegationChart').getContext('2d');
+        new Chart(ptrCtx, {
+            type: 'doughnut',
+            data: {
+                labels: [wrapLabels('Acceptable Operating Range (+/- 3%)'), wrapLabels('Negation Risk Zone')],
+                datasets: [{
+                    data: [6, 94], 
+                    backgroundColor: ['#FFC300', '#581845'],
+                    borderColor: '#FFFFFF',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#FFFFFF',
+                            font: { size: 14 }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: '72-Hour PTR Stability Window',
+                        color: '#FFFFFF',
+                        font: { size: 16 }
+                    },
+                    tooltip: tooltipConfig
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
