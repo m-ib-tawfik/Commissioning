@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 2: Dynamic Commissioning & Integrity Verification</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-[#F0F4F8] text-[#1E293B] font-sans">
+    <div class="min-h-screen">
+        <header class="bg-[#FF6B6B] text-white p-6 md:p-10 shadow-xl rounded-b-lg">
+            <div class="max-w-7xl mx-auto">
+                <h1 class="text-4xl md:text-5xl font-bold mb-2">Dynamic Verification: Day 2 Commissioning</h1>
+                <p class="text-xl font-light opacity-90">From Static Checklists to Functional Operation: Ensuring System Integrity and Performance Control.</p>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto p-4 md:p-8">
+            
+            <section id="section-introduction" class="mb-12">
+                <h2 class="text-3xl font-bold text-[#FF6B6B] mb-4 border-b-2 border-[#FF6B6B] pb-2">1. The Shift to Dynamic Control</h2>
+                <p class="text-lg text-[#1E293B] mb-6">
+                    Day 2 marks the critical handover to <strong>Commissioning (Cx)</strong>, where <strong>energized systems</strong> are tested against the Basis of Design (BOD). This phase is governed by Functional Performance Tests (FPTs), verifying both instrumentation accuracy and protective logic.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-[#FFD93D]">
+                        <p class="text-4xl font-extrabold text-[#FF6B6B]">4 HR</p>
+                        <p class="text-sm font-semibold mt-2">Minimum Pump Run Time (After Stability)</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-[#FFD93D]">
+                        <p class="text-4xl font-extrabold text-[#FF6B6B]">&lt; 2.0% O<sub>2</sub></p>
+                        <p class="text-sm font-semibold mt-2">Maximum O₂ Level Post-Inerting (Safety Target)</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-[#FFD93D]">
+                        <p class="text-4xl font-extrabold text-[#FF6B6B]">-40&deg;C</p>
+                        <p class="text-sm font-semibold mt-2">Target Dew Point (Moisture Removal)</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-controls" class="mb-12">
+                <h2 class="text-3xl font-bold text-[#FF6B6B] mb-6 border-b-2 border-[#FF6B6B] pb-2">2. Instrumentation and Safety Verification (SIS)</h2>
+                <p class="text-lg text-[#1E293B] mb-6 md:col-span-2">
+                    <strong>Live Loop Checks (LLC)</strong> ensure the signal integrity from field instrument (<strong>4-20 mA</strong>) to the controller. The most critical step is <strong>Interlock Testing</strong>, where <strong>safety-critical</strong> inputs (like a high-high level trip) are simulated to verify the <strong>final physical device</strong> (e.g., an Emergency Shutdown Valve) acts completely.
+                </p>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg md:col-span-2">
+                    <h3 class="text-xl font-semibold mb-4 text-[#FFD93D]">Live Loop Check (LLC) Flow</h3>
+                    <div class="grid grid-cols-5 text-sm md:text-base gap-2">
+                        <div class="flex flex-col items-center col-span-1 bg-[#1E293B] text-white p-2 rounded-md shadow">
+                            <p class="font-bold">1. Simulate Input</p>
+                            <p class="text-xs">Signal Generator</p>
+                        </div>
+                        <div class="flex items-center justify-center col-span-1 text-2xl text-[#FF6B6B]">▶</div>
+                        <div class="flex flex-col items-center col-span-1 bg-[#FFD93D] text-[#1E293B] p-2 rounded-md shadow">
+                            <p class="font-bold">2. Receive Signal</p>
+                            <p class="text-xs">DCS/PLC I/O Card</p>
+                        </div>
+                        <div class="flex items-center justify-center col-span-1 text-2xl text-[#FF6B6B]">▶</div>
+                        <div class="flex flex-col items-center col-span-1 bg-[#4ECDC4] text-white p-2 rounded-md shadow">
+                            <p class="font-bold">3. Confirm Action</p>
+                            <p class="text-xs">Control Valve (Physical Stroke)</p>
+                        </div>
+                    </div>
+                    <p class="text-sm italic mt-4 text-[#1E293B] border-t pt-2">Rule: This confirms the <strong>4-20 mA</strong> range maps accurately to <strong>0-100% valve travel</strong>.</p>
+                </div>
+            </section>
+            
+            <section id="section-performance" class="mb-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="md:col-span-2">
+                    <h2 class="text-3xl font-bold text-[#FF6B6B] mb-4 border-b-2 border-[#FF6B6B] pb-2">3. Equipment Performance and Integrity</h2>
+                    <p class="text-lg text-[#1E293B] mb-6">
+                        Operational tests verify if equipment performs under load. Successful verification requires plotting measured data against the manufacturer's <strong>guarantee curve</strong> and continuous monitoring for stability.
+                    </p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4 text-[#FFD93D]">Pump Operational Performance Check</h3>
+                    <div class="chart-container h-80">
+                        <canvas id="pumpCurveChart"></canvas>
+                    </div>
+                    <p class="text-sm mt-4 text-[#1E293B]">
+                        The line chart shows the critical task of plotting measured Head vs. Flow. The system must verify that actual performance (<strong>Measured Head</strong>) consistently meets or exceeds the contractual <strong>Minimum Guaranteed Curve</strong>.
+                    </p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4 text-[#FFD93D]">Critical Safety Rule: Catalyst Loading</h3>
+                        <div class="flex items-start mb-4">
+                            <span class="text-3xl mr-3" role="img" aria-label="Forbidden sign">🚫</span>
+                            <div>
+                                <p class="font-bold text-lg text-[#FF6B6B]">Free-fall is Strictly Forbidden</p>
+                                <p class="text-sm">
+                                    Dropping catalyst freely into the reactor causes <strong>particle attrition</strong> (crushing), leading to uneven density, which creates <strong>channeling</strong> (uneven flow) and causes a critical <strong>high pressure drop</strong>. Controlled methods like sock loading are mandatory.
+                                </p>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4 text-[#FFD93D] mt-6">Mandatory Preservation Check</h3>
+                        <p class="text-sm mt-2 text-[#1E293B]">
+                            For any delay, a <strong>Preservation Matrix</strong> must mandate <strong>Periodic Shaft Rotation</strong> (e.g., <strong>quarterly</strong>) on all rotating equipment to prevent <strong>bearing flat spots</strong> and safeguard the <strong>vendor warranty</strong>.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="section-preparation" class="mb-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="md:col-span-2">
+                    <h2 class="text-3xl font-bold text-[#FF6B6B] mb-4 border-b-2 border-[#FF6B6B] pb-2">4. Final Preparation: Drying, Inerting, and Safety</h2>
+                    <p class="text-lg text-[#1E293B] mb-6">
+                        Before the system can be declared Ready For Start-up (RFSU), two critical integrity checks ensure the internal environment is safe and contaminant-free: moisture removal and oxygen displacement.
+                    </p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4 text-[#FFD93D]">De-aeration Acceptance Status (Inerting)</h3>
+                    <div class="chart-container h-80">
+                        <canvas id="inertingChart"></canvas>
+                    </div>
+                    <p class="text-sm mt-4 text-[#1E293B]">
+                        The donut chart illustrates the success of the <strong>Pressurization/Depressurization (P/D) Cycles</strong>. The final O<sub>2</sub> reading must fall below the required safety threshold (typically <strong>2.0%</strong>) to prevent explosive mixture formation with hydrocarbons.
+                    </p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4 text-[#FFD93D]">System Drying Verification</h3>
+                    <ul class="list-none space-y-4 text-sm">
+                        <li class="p-3 bg-[#F0F4F8] rounded-lg border-l-4 border-[#4ECDC4] shadow-sm">
+                            <p class="font-semibold text-[#1E293B]">Method: Vacuum Dry-out</p>
+                            <p>Used to <strong>lower the boiling point of water</strong>, facilitating removal at safer, lower temperatures.</p>
+                        </li>
+                        <li class="p-3 bg-[#F0F4F8] rounded-lg border-l-4 border-[#4ECDC4] shadow-sm">
+                            <p class="font-semibold text-[#1E293B]">Method: Nitrogen Sweep</p>
+                            <p>High-volume, extremely <strong>dry N<sub>2</sub></strong> is swept through systems to displace residual moisture.</p>
+                        </li>
+                        <li class="p-3 bg-[#F0F4F8] rounded-lg border-l-4 border-[#4ECDC4] shadow-sm">
+                            <p class="font-semibold text-[#1E293B]">Acceptance: Dew Point Meter</p>
+                            <p>Success is verified by achieving a <strong>target dew point</strong> (e.g., -40&deg;C or better) at the exhaust points.</p>
+                        </li>
+                    </ul>
+                    <p class="text-sm mt-4 text-[#1E293B]">
+                        Failure to dry out moisture-sensitive systems risks <strong>hydrate formation</strong> and <strong>catalyst poisoning</strong>.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const CHART_COLORS = {
+                red: '#FF6B6B',
+                yellow: '#FFD93D',
+                cyan: '#4ECDC4',
+                dark: '#1E293B'
+            };
+
+            const TOOLTIP_CALLBACKS = {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            };
+
+            // --- Pump Curve Chart (Line Chart) ---
+            const pumpCurveCtx = document.getElementById('pumpCurveChart').getContext('2d');
+            const pumpCurveChart = new Chart(pumpCurveCtx, {
+                type: 'line',
+                data: {
+                    labels: ['0% Flow (Churn)', '25% Flow', '50% Flow', '100% Flow', '150% Flow'],
+                    datasets: [{
+                        label: 'Measured Head (m)',
+                        data: [78, 76, 70, 58, 40],
+                        borderColor: CHART_COLORS.red,
+                        backgroundColor: 'transparent',
+                        borderWidth: 3,
+                        tension: 0.3
+                    }, {
+                        label: 'Minimum Guaranteed Head (m)',
+                        data: [75, 73, 67, 55, 37],
+                        borderColor: CHART_COLORS.dark,
+                        backgroundColor: 'transparent',
+                        borderDash: [5, 5],
+                        pointStyle: 'rect',
+                        pointRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'Differential Head (meters)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Flow Rate (% Design)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: { callbacks: TOOLTIP_CALLBACKS }
+                    }
+                }
+            });
+
+            // --- Inerting Chart (Donut Chart) ---
+            const inertingCtx = document.getElementById('inertingChart').getContext('2d');
+            const inertingChart = new Chart(inertingCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        ['Nitrogen (Inerting', 'Medium)'],
+                        ['Target Residual', 'Oxygen'],
+                        'Hydrocarbons (Not Yet Added)'
+                    ],
+                    datasets: [{
+                        data: [96.5, 1.5, 2.0],
+                        backgroundColor: [
+                            CHART_COLORS.cyan,
+                            CHART_COLORS.yellow,
+                            CHART_COLORS.dark + '50' 
+                        ],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        title: {
+                            display: true,
+                            text: 'System Composition Post-Purge (%)'
+                        },
+                        tooltip: { callbacks: TOOLTIP_CALLBACKS }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
