@@ -1,0 +1,328 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 4 Commissioning: Utilities, Infrastructure & Specialized Systems</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; 
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+    </style>
+</head>
+<body class="bg-[#F3E5F5] text-[#581845] min-h-screen p-4 sm:p-8">
+    
+    <script>
+        const vibrantPurple = '#581845';
+        const brightYellow = '#FFC300';
+        const magenta = '#C70039';
+        const white = '#FFFFFF';
+        const lightGray = '#E0E0E0'; 
+
+        const tooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        function createWrappedLabels(label) {
+            const maxChars = 16;
+            if (label.length <= maxChars) return label;
+            
+            const words = label.split(' ');
+            let lines = [];
+            let currentLine = '';
+
+            for (const word of words) {
+                if (currentLine.length + word.length + 1 <= maxChars) {
+                    currentLine += (currentLine.length > 0 ? ' ' : '') + word;
+                } else {
+                    if (currentLine) lines.push(currentLine);
+                    currentLine = word;
+                }
+            }
+            if (currentLine) lines.push(currentLine);
+            return lines;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. System Breakdown (Goal: Compare/Inform)
+            const systemData = [65, 35]; // CAF vs COF
+            const systemLabels = ['CAF (Contractor)', 'COF (Owner Only)'];
+            const systemLabelsWrapped = systemLabels.map(label => createWrappedLabels(label));
+
+            const systemCtx = document.getElementById('systemBreakdownChart').getContext('2d');
+            new Chart(systemCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: systemLabelsWrapped,
+                    datasets: [{
+                        data: systemData,
+                        backgroundColor: [vibrantPurple, magenta],
+                        borderColor: white,
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: vibrantPurple, font: { size: 14 } }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Facility Subsystem Classification (CAF vs COF)',
+                            color: vibrantPurple
+                        },
+                        tooltip: tooltipConfig
+                    }
+                }
+            });
+
+            // 2. Fire Pump Performance (Goal: Compare vs Target)
+            const pumpData = {
+                labels: ['Churn (0% Flow)', 'Rated (100% Flow)', 'Maximum (150% Flow)'],
+                designHead: [100, 95, 75], // Example Design Head (psi)
+                actualHead: [100, 93, 73] // Example Actual Test Head (psi)
+            };
+
+            const pumpCtx = document.getElementById('firePumpChart').getContext('2d');
+            new Chart(pumpCtx, {
+                type: 'line',
+                data: {
+                    labels: pumpData.labels,
+                    datasets: [
+                        {
+                            label: 'Design Head (psi)',
+                            data: pumpData.designHead,
+                            borderColor: magenta,
+                            backgroundColor: 'rgba(199, 0, 57, 0.2)',
+                            tension: 0.1,
+                            pointRadius: 6
+                        },
+                        {
+                            label: 'Actual Head (psi)',
+                            data: pumpData.actualHead,
+                            borderColor: vibrantPurple,
+                            backgroundColor: 'rgba(88, 24, 69, 0.2)',
+                            tension: 0.1,
+                            pointStyle: 'rectRot',
+                            pointRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            title: { display: true, text: 'NFPA 20 Flow Points', color: vibrantPurple },
+                            ticks: { color: vibrantPurple },
+                            grid: { color: lightGray }
+                        },
+                        y: {
+                            title: { display: true, text: 'Pressure Head (psi)', color: vibrantPurple },
+                            beginAtZero: false,
+                            ticks: { color: vibrantPurple },
+                            grid: { color: lightGray }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'top', labels: { color: vibrantPurple } },
+                        title: {
+                            display: true,
+                            text: 'Fire Pump Performance Curve Verification',
+                            color: vibrantPurple
+                        },
+                        tooltip: tooltipConfig
+                    }
+                }
+            });
+
+            // 3. Building Systems Commissioning Status (Goal: Inform/Compare)
+            const buildingData = {
+                labels: ['HVAC & TAB', 'Life Safety (F&G)', 'MV Power & UPS'],
+                completed: [98, 99, 95],
+                checked: [100, 100, 98]
+            };
+            const buildingLabelsWrapped = buildingData.labels.map(label => createWrappedLabels(label));
+
+            const buildingCtx = document.getElementById('buildingComplianceChart').getContext('2d');
+            new Chart(buildingCtx, {
+                type: 'bar',
+                data: {
+                    labels: buildingLabelsWrapped,
+                    datasets: [
+                        {
+                            label: 'Pre-Commissioning Checks (P-Cx)',
+                            data: buildingData.checked,
+                            backgroundColor: vibrantPurple,
+                            borderColor: vibrantPurple,
+                            stack: 'stack1'
+                        },
+                        {
+                            label: 'Functional Test (Cx) Complete',
+                            data: buildingData.completed,
+                            backgroundColor: brightYellow,
+                            borderColor: brightYellow,
+                            stack: 'stack1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            ticks: { color: vibrantPurple },
+                            grid: { display: false }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { color: vibrantPurple },
+                            grid: { color: lightGray }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'top', labels: { color: vibrantPurple } },
+                        title: {
+                            display: true,
+                            text: 'Building Systems Commissioning Status (%)',
+                            color: vibrantPurple
+                        },
+                        tooltip: tooltipConfig
+                    }
+                }
+            });
+        });
+    </script>
+
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-10 p-6 rounded-lg bg-[#C70039] shadow-xl">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-white">DAY 4: UTILITIES, INFRASTRUCTURE & SPECIALIZED SYSTEMS</h1>
+            <p class="text-xl text-[#FFC300] mt-2">Final Verification of Support Systems and Complex Assets</p>
+        </header>
+
+        <!-- Section 1: System Classification and Utilities -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div class="md:col-span-1 bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-bold text-[#581845] mb-4">FLUID HIERARCHY & HSE CONTROL</h2>
+                <p class="text-gray-700 text-sm mb-4">Facility subsystems are classified by fluid type, determining ownership, safety protocol (PTW), and scheduling priority.</p>
+                <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                    <li><strong>CAF (Contractor Authorized Fluid):</strong> Inert gas, Utility Air, Water. Can be commissioned by the Contractor.</li>
+                    <li><strong>COF (Company Only Fluid):</strong> Hydrocarbons, High-Pressure Steam, Fuel Gas. Must be handled by the Owner's Operations personnel.</li>
+                </ul>
+            </div>
+            
+            <div class="md:col-span-2 bg-white p-6 rounded-lg shadow-lg">
+                <div class="chart-container h-80 max-h-[350px]">
+                    <canvas id="systemBreakdownChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Fire and Safety Systems (NFPA 20) -->
+        <section class="mb-10 p-6 rounded-lg bg-[#581845] shadow-xl">
+            <h2 class="text-3xl font-bold text-[#FFC300] mb-4 border-b border-[#C70039] pb-2">CRITICAL CHECK: FIRE PUMP NETWORK (NFPA 20)</h2>
+            <p class="text-white mb-6">Fire suppression networks are validated against specific <strong>NFPA 20</strong> flow criteria. The test verifies performance at three key points to ensure the pump curve meets the design specifications.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Pump Performance Chart -->
+                <div class="bg-white p-4 rounded-lg">
+                    <div class="chart-container h-80 max-h-[300px]">
+                        <canvas id="firePumpChart"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Test Points Summary -->
+                <div class="p-4 rounded-lg bg-[#C70039] text-white">
+                    <h3 class="text-xl font-bold mb-3">Mandatory Test Points</h3>
+                    <ul class="list-disc list-inside space-y-3 text-sm">
+                        <li><strong>Churn (0% Flow):</strong> Test ensures maximum shut-off pressure does not exceed design limits.</li>
+                        <li><strong>Rated (100% Flow):</strong> Verifies the pump delivers the guaranteed flow rate at the specified design head.</li>
+                        <li><strong>Maximum (150% Flow):</strong> Checks that the discharge pressure remains stable even under maximum load.</li>
+                        <li><strong>Alarm Verification:</strong> Diesel/Electric controllers must be tested for battery failure, low oil pressure, and high temperature shutdowns.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Building Systems and Infrastructure -->
+        <section class="mb-10 p-6 rounded-lg bg-white shadow-lg">
+            <h2 class="text-3xl font-bold text-[#581845] mb-4 border-b pb-2">FACILITY COMMISSIONING STATUS (HVAC, POWER, ICT)</h2>
+            <p class="text-gray-700 mb-6">Commissioning verifies that all support infrastructure—from HVAC to communication networks—is installed correctly and performs its required function as per the Basis of Design.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Building Systems Chart -->
+                <div class="md:col-span-2 bg-[#F3E5F5] p-4 rounded-lg">
+                    <div class="chart-container h-80 max-h-[350px]">
+                        <canvas id="buildingComplianceChart"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Electrical & Low Voltage Checks -->
+                <div class="md:col-span-2 pt-4">
+                    <h3 class="text-xl font-bold text-[#581845] mb-2">Key Infrastructure Checks</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1 text-sm grid grid-cols-1 sm:grid-cols-2">
+                        <li><strong>Electrical:</strong> <strong>Load bank testing for Generators and UPS</strong>. Verification of <strong>MV power distribution loops</strong>.</li>
+                        <li><strong>Life Safety:</strong> End-to-end testing of <strong>Fire Alarm System interlocks</strong> with <strong>HVAC</strong> shutdown sequences.</li>
+                        <li><strong>HVAC:</strong> <strong>Total System Balancing</strong> (Air and Water) for Air Handling Units (AHUs) and VAVs.</li>
+                        <li><strong>ICT:</strong> <strong>Network functional checks for Data centers and communication trays</strong>.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Specialized Assets -->
+        <section class="mb-10 p-6 rounded-lg bg-[#C70039] shadow-xl">
+            <h2 class="text-3xl font-bold text-white mb-4 border-b border-[#FFC300] pb-2">SPECIALIZED ASSETS: TANKS AND OFFSHORE</h2>
+            <p class="text-[#F3E5F5] mb-6">Complex industrial systems require unique P-Cx protocols to ensure integrity prior to operation.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Crude Oil Tank Testing -->
+                <div class="bg-white p-4 rounded-lg">
+                    <h3 class="text-xl font-bold text-[#581845] mb-2">Crude Oil Tank Commissioning</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1 text-sm">
+                        <li><strong>Hydrotesting:</strong> Filling the tank shell to verify structural integrity (largest volume utility requirement).</li>
+                        <li><strong>Roof Testing:</strong> Functional testing of <strong>floating roofs</strong> and drain systems.</li>
+                        <li><strong>Instrumentation:</strong> Calibration and testing of <strong>Level gauges and high/low alarms</strong>.</li>
+                    </ul>
+                </div>
+                
+                <!-- Offshore SPM Systems -->
+                <div class="bg-white p-4 rounded-lg">
+                    <h3 class="text-xl font-bold text-[#581845] mb-2">Offshore SPM Systems</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1 text-sm">
+                        <li><strong>Marine Coordination:</strong> Testing requires coordination with <strong>marine operations</strong>.</li>
+                        <li><strong>Subsea Testing:</strong> Leak testing of <strong>Subsea flowlines and hoses</strong> using <strong>inhibited water and dyes</strong>.</li>
+                        <li><strong>Controls:</strong> Verification of <strong>Mooring System Control Panel (MSCP)</strong> interface with the topside DCS.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</body>
+</html>
