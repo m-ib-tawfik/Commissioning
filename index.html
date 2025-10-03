@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Commissioning Handout Index</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light gray background */
+        }
+        .header-bg {
+            /* Using a common color scheme from your documents (e.g., Day 1/Day 3) */
+            background-color: #003F5C; 
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+        .day-label {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #ffffff;
+            /* Day-specific colors inspired by the handouts */
+        }
+        .day-1 { background-color: #7A5195; } /* Purple - Foundations */
+        .day-2 { background-color: #FF6B6B; } /* Red/Salmon - Dynamic */
+        .day-3 { background-color: #C70039; } /* Dark Red/Magenta - Start-up */
+        .day-4 { background-color: #581845; } /* Vibrant Purple - Utilities */
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="header-bg text-white py-16 mb-12">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <h1 class="text-5xl font-extrabold mb-2">COMMISSIONING EXCELLENCE</h1>
+            <p class="text-2xl font-light text-[#FFA600]">Technical Handout Series (Day 1 - Day 4)</p>
+        </div>
+    </div>
+
+    <main class="max-w-6xl mx-auto px-4 pb-12">
+
+        <p class="text-lg text-center mb-10 text-gray-600">
+            Select a day below to review the detailed methodology, critical checklists, and integrity verification protocols for each phase of the project lifecycle.
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <a href="Day 1.html" class="card p-6 block">
+                <span class="day-label day-1">DAY 1</span>
+                <h2 class="text-3xl font-bold text-[#003F5C] mt-3 mb-2">Foundations & Pre-Commissioning (P-Cx)</h2>
+                <p class="text-gray-700 mb-4">Focuses on the initial quality and integrity checks: Mechanical Completion (MC), Punch List categorization (A/B/C), **Pressure Testing** (Hydro/Pneumatic), and alignment checks.</p>
+                <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                    <li>Key Milestone: Mechanical Completion (MC).</li>
+                    <li>Core Activity: Static checks and Cleaning Velocities (Air/Water).</li>
+                    <li>Safety Focus: Stored Energy Hazard in Pneumatic Testing.</li>
+                </ul>
+            </a>
+
+            <a href="Day 2.html" class="card p-6 block">
+                <span class="day-label day-2">DAY 2</span>
+                <h2 class="text-3xl font-bold text-[#1E293B] mt-3 mb-2">Dynamic Verification & Operational Testing (Cx)</h2>
+                <p class="text-gray-700 mb-4">Covers the energized phase: **Live Loop Checking (LLC)**, Interlock and SIS testing, leak tightness, inerting, and operational runs for rotating equipment.</p>
+                <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                    <li>Key Milestone: Ready for Commissioning (RFC).</li>
+                    <li>Core Activity: Functional Performance Tests (FPTs) and Dew Point Verification.</li>
+                    <li>Safety Focus: Purging to achieve < 2.0% O₂ and Preservation to maintain warranty.</li>
+                </ul>
+            </a>
+            
+            <a href="Day 3.html" class="card p-6 block">
+                <span class="day-label day-3">DAY 3</span>
+                <h2 class="text-3xl font-bold text-[#C70039] mt-3 mb-2">Initial Start-Up & Contractual Acceptance (PAC)</h2>
+                <p class="text-gray-700 mb-4">Details the transfer to live operations: passing the **PSSR**, controlled feed introduction, and the crucial 72-hour **Performance Test Run (PTR)** which triggers formal handover.</p>
+                <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                    <li>Key Milestone: Ready For Start-Up (RFSU) and Provisional Acceptance (PAC).</li>
+                    <li>Core Activity: Performance testing (72-hour run) and $\mathbf{\pm 3\%}$ stability rule.</li>
+                    <li>Safety Focus: PSSR (Pre-Start-up Safety Review) as the final gate.</li>
+                </ul>
+            </a>
+
+            <a href="Day 4.html" class="card p-6 block">
+                <span class="day-label day-4">DAY 4</span>
+                <h2 class="text-3xl font-bold text-[#581845] mt-3 mb-2">Utilities, Infrastructure & Specialized Systems</h2>
+                <p class="text-gray-700 mb-4">Focuses on critical support systems: Fire Pump validation (**NFPA 20**), HVAC balancing (TAB), power systems (UPS/Generator), and specialized industrial assets (Crude Oil Tanks/Offshore SPM).</p>
+                <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                    <li>Key Systems: Fire Protection, MV/LV Power, HVAC.</li>
+                    <li>Core Activity: NFPA 20 pump curve verification.</li>
+                    <li>Safety Focus: CAF/COF fluid hierarchy and Life Safety interlocks.</li>
+                </ul>
+            </a>
+
+        </div>
+
+        <div class="mt-12 text-center text-gray-500 text-sm border-t pt-6">
+            <p>&copy; 2025 Commissioning Handout Series. All rights reserved.</p>
+        </div>
+
+    </main>
+</body>
+</html>
